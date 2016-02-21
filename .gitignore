@@ -1,0 +1,6 @@
+
+.idea
+ScalaByExample-Exercises/target/
+ScalaByExample-Exercises/project/project/target/
+ScalaByExample-Exercises/project/target/
+*.class
