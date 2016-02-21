@@ -10,7 +10,18 @@ if(!filename) {
 }
 
 fs.watch(filename, () => {
-	let ls = spawn('ls', ['-lh', filename]);
-	ls.stdout.pipe(process.stdout);
+	let 
+		ls = spawn('ls', ['-lh', filename]),
+		output = '';
+
+	ls.stdout.on('data', (chunk) => {
+		output += chunk.toString();
+	})
+
+	ls.on('close', () => {
+		let parts = output.split(/\s+/);
+		console.dir([parts[8], parts[7]]);
+	})
+
 	console.log("Waching " + filename + " for changes");
 });
