@@ -9,10 +9,17 @@ const
 	server = net.createServer((c) => {
 
 		console.log('Subscriber connected');
-		c.write("Watching " + filename + " for changes \n");
+		c.write(JSON.stringify({
+			type: 'watching',
+			file: filename
+		}) + '\n');
 
 		let watcher = fs.watch(filename, () => {
-			c.write('File ' + filename + ' changed at ' + Date.now() + '\n');
+			c.write(JSON.stringify({
+				type: 'changed',
+				file: filename,
+				timestamp: Date.now()
+			}) + '\n');
 		});
 
 		c.on('close', () => {
