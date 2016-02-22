@@ -2,11 +2,11 @@
 
 const
 	net    = require('net'),
-	client = net.connect({port: 5432});
+	ldj    = require('./ldj'),
+	netClient = net.connect({port: 5432}),
+	ldjClient = ldj.connect(netClient);
 
-client.on('data', (data) => {
-	let msg = JSON.parse(data);
-
+ldjClient.on('message', (msg) => {
 	if(msg.type === 'watching') {
 		console.log("Now watching " + msg.file);
 	} else if(msg.type === 'changed') {
