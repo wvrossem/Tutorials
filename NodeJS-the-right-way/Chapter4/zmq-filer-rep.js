@@ -12,7 +12,6 @@ responder.on('message', (data) => {
     console.log('Received request to get: ' + request.path);
 
     fs.readFile(request.path, (err, data) => {
-
         console.log('Sending response content');
         responder.send(JSON.stringify({
             content: data.toString(),
